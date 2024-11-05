@@ -2,6 +2,7 @@
 using Apoio.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace Apoio.Controllers
 {
@@ -17,7 +18,8 @@ namespace Apoio.Controllers
 
         public IActionResult Index()
         {
-            return View(_context .Apostas.ToList());
+            var apostaContext = _context.Apostas.Include(ap => ap.Apostador);
+            return View(apostaContext.ToList());
         }
 
         public IActionResult Create()
